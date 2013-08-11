@@ -6,27 +6,43 @@ using System.Windows.Forms;
 
 namespace PeerstPlayer.Model.Shortcut
 {
-	//-------------------------------------------------------------
-	// 概要：キー入力情報クラス
-	//-------------------------------------------------------------
+	/// <summary>
+	/// キー入力情報クラス
+	/// </summary>
 	class KeyInput
 	{
 		/// <summary>入力キー</summary>
-		public Keys Key { get; set; }
+		public Keys Key { get; private set; }
 
 		/// <summary>修飾キー</summary>
-		public Keys ModifierKey { get; set; }
+		public ModifierKeys ModifierKey { get; private set; }
 
-		public KeyInput(Keys key, Keys modifier)
+		/// <summary>
+		/// 修飾キー + 入力キーを設定
+		/// </summary>
+		public KeyInput(Keys key, ModifierKeys modifier)
 		{
 			Key = key;
 			ModifierKey = modifier;
 		}
 
+		/// <summary>
+		/// 入力キーを設定
+		/// </summary>
 		public KeyInput(Keys key)
+			: this(key, (short)ModifierKeys.None)
 		{
-			Key = key;
-			ModifierKey = Keys.None;
 		}
 	}
+
+	/// <summary>
+	/// 修飾キー
+	/// </summary>
+	enum ModifierKeys : short
+	{
+		None	= 0,
+		Shift	= 1 << 0,
+		Contrl	= 1 << 1,
+		Alt		= 1 << 2
+	};
 }
